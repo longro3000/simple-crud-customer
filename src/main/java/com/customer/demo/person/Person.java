@@ -29,6 +29,10 @@ public class Person {
   @Size(max = 250)
   private String lastName;
 
+  @Column(name = "is_deleted", columnDefinition = "boolean default false")
+  @NotNull
+  private boolean isDeleted;
+
   @OneToMany(cascade = CascadeType.ALL, 
     fetch = FetchType.LAZY,
     mappedBy = "post")
@@ -38,8 +42,9 @@ public class Person {
     super();
   }
 
-  public Person(String firstName, String lastName, ) {
-
+  public Person(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
 
   public void setFirstName(String firstName) {
