@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.customer.demo.customer.Customer;
+
 @Entity(name = "person")
 @Table(name = "person")
 public class Person {
