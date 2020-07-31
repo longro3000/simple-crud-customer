@@ -2,7 +2,6 @@ package com.customer.demo.customer;
 
 import java.text.DecimalFormat;
 import java.util.UUID;
-import java.util.HashSet;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,13 +14,14 @@ import com.customer.demo.customer.Customer;
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
   private Long id;
 
   @GeneratedValue
-  @column(name = "uuid", columnDefinition = "BINARY(16)")
+  @Column(name = "uuid", columnDefinition = "BINARY(16)")
   private UUID uuid = UUID.randomUUID();
 
-  @column(name = "first_name", columnDefinition = "varchar(255)")
+  @Column(name = "first_name", columnDefinition = "varchar(255)")
   @NotNull
   @Size(max = 255)
   private String firstName;
@@ -40,10 +40,9 @@ public class Person {
   @NotNull
   private boolean isDeleted = false;
 
-  @OneToMany(cascade = CascadeType.ALL, 
-    fetch = FetchType.LAZY,
-    mappedBy = "post")
-  private Set<Customer> customers = new HashSet<>();
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "customer_id", referencedColumnName = "uuid")
+  private Customer customer;
 
   public Person() {
     super();
@@ -79,11 +78,19 @@ public class Person {
     return this.role;
   }
 
-  public void addCustomer(Customer customer) {
-    this.customers.add(customer)
+  public boolean setDeleted(boolean isDeleted) {
+    this.isDeleted = isDeleted;
   }
 
-  public HashSet<Customer> getCustomer() {
-    return this.customers;
+  public boolean getDeleted(boolean isDeleted) {
+    return this.isDeleted;
+  }
+
+  public void setCustomer(Customer customer) {
+    this.customer = customer
+  }
+
+  public Customer getCustomer() {
+    return this.customer;
   }
 }

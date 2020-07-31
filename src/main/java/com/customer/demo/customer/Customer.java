@@ -30,9 +30,6 @@ public class Customer {
   @NotNull
   private boolean isActive = true;
 
-  @OneToMany(fetch = FetchType.LAZY)
-  private Person person = new Person();
-
   public Person() {
     super();
   }
@@ -55,13 +52,5 @@ public class Customer {
 
   public boolean getActive() {
     return this.isActive;
-  }
-
-  public void setPerson(Person person) {
-    this.person = person
-  }
-
-  public Person getPerson() {
-    return this.person;
   }
 }
