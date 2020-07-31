@@ -33,7 +33,7 @@ public class Person {
 
   @Column(name = "is_deleted", columnDefinition = "boolean default false")
   @NotNull
-  private boolean isDeleted;
+  private boolean isDeleted = false;
 
   @OneToMany(cascade = CascadeType.ALL, 
     fetch = FetchType.LAZY,

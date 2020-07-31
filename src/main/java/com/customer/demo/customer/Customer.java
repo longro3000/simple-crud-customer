@@ -28,7 +28,7 @@ public class Customer {
 
   @Column(name = "is_active", columnDefinition = "boolean default true")
   @NotNull
-  private boolean isActive;
+  private boolean isActive = true;
 
   @OneToMany(fetch = FetchType.LAZY)
   private Person person = new Person();
