@@ -21,15 +21,20 @@ public class Person {
   @column(name = "uuid", columnDefinition = "BINARY(16)")
   private UUID uuid = UUID.randomUUID();
 
-  @column(name = "first_name")
+  @column(name = "first_name", columnDefinition = "varchar(255)")
   @NotNull
-  @Size(max = 250)
+  @Size(max = 255)
   private String firstName;
 
-  @column(name = "last_name")
+  @column(name = "last_name", columnDefinition = "varchar(255)")
   @NotNull
-  @Size(max = 250)
+  @Size(max = 255)
   private String lastName;
+
+  @column(name = "role", columnDefinition = "varchar(255)")
+  @NotNull
+  @Size(max = 255)
+  private String role;
 
   @Column(name = "is_deleted", columnDefinition = "boolean default false")
   @NotNull
@@ -44,9 +49,10 @@ public class Person {
     super();
   }
 
-  public Person(String firstName, String lastName) {
+  public Person(String firstName, String lastName, String role) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.role = role;
   }
 
   public void setFirstName(String firstName) {
@@ -63,6 +69,14 @@ public class Person {
 
   public String getLastName() {
     return this.lastName;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
+  public String getRole() {
+    return this.role;
   }
 
   public void addCustomer(Customer customer) {

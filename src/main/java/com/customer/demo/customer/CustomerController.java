@@ -16,20 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
 	
 	@Autowired
-	private PlanService planService;
+	private CustomerService customerService;
 	
 	@GetMapping("/bulkcreate")
 	public String bulkCreate() {
-		return planService.bulkcreate();
+		return customerService.bulkcreate();
 	}
 	
 	@PostMapping("/create")
-	public Plan create(@RequestBody Plan plan){
-		return planService.create(plan);
+	public Customer create(@RequestBody Customer customer){
+		return customerService.create(customer);
 	}
 	
 	@GetMapping("/findall")
-	public List<Plan> findAll(){
-		return planService.findAll();
+	public List<Customer> findAll(){
+		return customerService.findAll();
 	}
 }

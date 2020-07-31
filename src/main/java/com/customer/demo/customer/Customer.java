@@ -37,32 +37,31 @@ public class Customer {
     super();
   }
 
-  public Person(String firstName, String lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+  public Person(String name) {
+    this.name = name
   }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public String getLastName() {
-    return this.firstName;
+  public String getName() {
+    return this.name;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
+  public void setActive(boolean isActive) {
+    this.isActive = isActive;
   }
 
-  public String getLastName() {
-    return this.lastName;
+  public boolean getActive() {
+    return this.isActive;
   }
 
-  public void addCustomer(Customer customer) {
-    this.customers.add(customer)
+  public void setPerson(Person person) {
+    this.person = person
   }
 
-  public HashSet<Customer> getCustomer() {
-    return this.customers;
+  public Person getPerson() {
+    return this.person;
   }
 }
