@@ -18,18 +18,43 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
-	@GetMapping("/bulkcreate")
-	public String bulkCreate() {
-		return customerService.bulkcreate();
-	}
-	
-	@PostMapping("/create")
+	@PostMapping("/")
 	public Customer create(@RequestBody Customer customer){
 		return customerService.create(customer);
-	}
+  }
+  
+  @GetMapping("/")
+	public List<Person> findAll() {
+    return personService.findAll(true);
+  }
+
+  @GetMapping("/active")
+	public List<Person> findAll() {
+    return personService.findAll(true);
+  }
 	
-	@GetMapping("/findall")
-	public List<Customer> findAll(){
-		return customerService.findAll();
+  @GetMapping("/customer/{customerId}")
+	public Person findAll(@PathVariable (value = "customerId") UUID customerId) {
+    return personService.findByCustomer(customerId);
+  }
+
+  @GetMapping("/{personId}")
+	public Person findByPersonId(@PathVariable (value = "personId") UUID personId) {
+    return personService.findById(personId);
+  }
+  
+  @PostMapping("/")
+	public void create(@RequestBody person person){
+		return personService.create(person);
+  }
+  
+  @DeleteMapping("/{personId}")
+	public ResponseEntity<?> delete(@PathVariable (value = "personId") UUID personId){
+		return personService.deletePerson(personId);
+  }
+  
+  @PutMapping("/{personId}")
+	public Person update(@RequestBody person person, @PathVariable (value = "personId") UUID personId){
+		return personService.updatePerson(personId, person);
 	}
 }

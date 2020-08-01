@@ -14,7 +14,7 @@ import com.example.jpa.exception.ResourceNotFoundException;
 public class PersonService {
   
 	@Autowired
-	personRepository repository;
+	PersonRepository repository;
 	
 	public Person create(Person person){
 		// save a single Customer
