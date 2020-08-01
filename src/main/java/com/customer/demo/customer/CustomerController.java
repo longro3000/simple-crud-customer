@@ -24,37 +24,32 @@ public class CustomerController {
   }
   
   @GetMapping("/")
-	public List<Person> findAll() {
-    return personService.findAll(true);
+	public List<Customer> findAll() {
+    return customerService.findAll(true);
   }
 
   @GetMapping("/active")
-	public List<Person> findAll() {
-    return personService.findAll(true);
-  }
-	
-  @GetMapping("/customer/{customerId}")
-	public Person findAll(@PathVariable (value = "customerId") UUID customerId) {
-    return personService.findByCustomer(customerId);
+	public List<Customer> findAll() {
+    return customerService.findAll(true);
   }
 
-  @GetMapping("/{personId}")
-	public Person findByPersonId(@PathVariable (value = "personId") UUID personId) {
-    return personService.findById(personId);
+  @GetMapping("/{customerId}")
+	public Customer findByCustomerId(@PathVariable (value = "customerId") UUID customerId) {
+    return customerService.findById(customerId);
   }
   
   @PostMapping("/")
-	public void create(@RequestBody person person){
-		return personService.create(person);
+	public void create(@RequestBody Customer customer){
+		return customerService.create(customer);
   }
   
-  @DeleteMapping("/{personId}")
-	public ResponseEntity<?> delete(@PathVariable (value = "personId") UUID personId){
-		return personService.deletePerson(personId);
+  @DeleteMapping("/{customerId}")
+	public ResponseEntity<?> delete(@PathVariable (value = "customerId") UUID customerId){
+		return customerService.deleteCustomer(customerId);
   }
   
-  @PutMapping("/{personId}")
-	public Person update(@RequestBody person person, @PathVariable (value = "personId") UUID personId){
-		return personService.updatePerson(personId, person);
+  @PutMapping("/{customerId}")
+	public customer update(@RequestBody customer customer, @PathVariable (value = "customerId") UUID customerId){
+		return customerService.updatecustomer(customerId, customer);
 	}
 }
