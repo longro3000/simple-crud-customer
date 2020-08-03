@@ -1,11 +1,14 @@
 package com.example.jpa.person;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -16,16 +19,17 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
 
 import com.example.jpa.customer.Customer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "person")
 @Table(name = "person")
-public class Person {
+public class Person implements Serializable {
   @Id
   @GeneratedValue
   @Column(name = "id")
   private Long id;
 
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @ColumnDefault("random_uuid()")
   @Column(name = "uuid", columnDefinition = "BINARY(16)")
   private UUID uuid = UUID.randomUUID();
@@ -46,7 +50,7 @@ public class Person {
   private boolean isDeleted = false;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "customer_id", referencedColumnName = "uuid")
+  @JoinColumn(name = "customer_id", referencedColumnName = "uuid", nullable = true)
   private Customer customer;
 
   public Person() {
@@ -58,6 +62,15 @@ public class Person {
     this.lastName = lastName;
     this.role = role;
   }
+  
+  public UUID getUuid() {
+	  return this.uuid;
+  }
+  
+  public void setUuid(UUID uuid) {
+	  this.uuid = uuid;
+  }
+
 
   public void setFirstName(String firstName) {
     this.firstName = firstName;
@@ -94,7 +107,7 @@ public class Person {
   public void setCustomer(Customer customer) {
     this.customer = customer;
   }
-
+  
   public Customer getCustomer() {
     return this.customer;
   }

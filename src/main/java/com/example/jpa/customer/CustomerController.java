@@ -22,12 +22,12 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
-	@PostMapping("/")
+	@PostMapping()
 	public Customer create(@RequestBody Customer customer){
 		return customerService.create(customer);
 	}
   
-  @GetMapping("/")
+  @GetMapping()
 	public List<Customer> findAll() {
     return customerService.findAll(true);
   }

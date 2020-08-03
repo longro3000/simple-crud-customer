@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,8 +14,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.ColumnDefault;
 
-import com.example.jpa.person.Person;
-
 @Entity(name = "customer")
 @Table(name = "customer")
 public class Customer {
@@ -22,7 +21,7 @@ public class Customer {
   @GeneratedValue
   private Long id;
 
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "uuid", columnDefinition = "BINARY(16)")
   @ColumnDefault("random_uuid()")
   private UUID uuid = UUID.randomUUID();
@@ -39,7 +38,15 @@ public class Customer {
   public Customer() {
     super();
   }
-
+  
+  public UUID getUuid() {
+	  return this.uuid;
+  }
+  
+  public void setUuid(UUID uuid) {
+	  this.uuid = uuid;
+  }
+  
   public Customer(String name) {
     this.name = name;
   }

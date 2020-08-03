@@ -15,12 +15,13 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 	
-	@PostMapping("/")
+	@PostMapping()
 	public Person create(@RequestBody Person person){
+    System.out.println(person);
 		return personService.create(person);
 	}
   
-  @GetMapping("/")
+  @GetMapping()
 	public List<Person> findAllUnDeleted() {
     return personService.findAll(false);
   }
@@ -35,9 +36,10 @@ public class PersonController {
   return personService.findByUuid(personId);
 }
 
-  @GetMapping("/customer/{customerId}")
-	public Person findByCustomerId(@PathVariable (value = "customerId") UUID customerId) {
-    return personService.findByCustomerId(customerId);
+  @PutMapping("/{personId}/customer/{customerId}")
+  public Person updateCustomerId(@PathVariable (value = "personId") UUID personId,
+  @PathVariable (value = "customerId") UUID customerId) {
+    return personService.updateCustomerId(personId, customerId);
   }
   
   @DeleteMapping("/{personId}")
