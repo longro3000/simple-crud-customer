@@ -44,9 +44,13 @@ public class PersonService {
 	  }).orElseThrow(() -> new ResourceNotFoundException("customer with id " + customerId + " not found"));
   }
   
+  public List<Person> findByCustomerUuid(UUID customerId) {
+	  return repository.findByCustomerUuidAndIsDeletedFalse(customerId);
+  }
+  
   public Person findByUuid(UUID personId){
     return repository.findByUuid(personId).map(person -> {
-    	 if (person.getDeleted() == false) {
+    	 if (person.getIsDeleted() == false) {
     	      return person;
     	    } else throw(new ResourceNotFoundException("Person with customer id " + personId + " not found"));
     }).orElseThrow(() -> new ResourceNotFoundException("Person with id " + personId + " not found"));
@@ -54,9 +58,9 @@ public class PersonService {
   
   public ResponseEntity<?> deletePerson(UUID personId) {
     return repository.findByUuid(personId).map(person -> {
-      person.setDeleted(true);
+      person.setIsDeleted(true);
       repository.save(person);
-      return ResponseEntity.ok().build();
+      return ResponseEntity.noContent().build();
     }).orElseThrow(() -> new ResourceNotFoundException("Person with id " + personId + " not found"));
   }
 

@@ -15,7 +15,7 @@ CREATE TABLE person (
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   role VARCHAR(255) NOT NULL,
-  is_deleted boolean NOT NULL default true,
+  is_deleted boolean NOT NULL default false,
   customer_id uuid,
 
   CONSTRAINT FK_PERSON_CUSTOMER FOREIGN KEY (CUSTOMER_ID) REFERENCES CUSTOMER(UUID)

@@ -12,43 +12,49 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/person")
 public class PersonController {
 	
-	@Autowired
-	private PersonService personService;
-	
-	@PostMapping()
-	public Person create(@RequestBody Person person){
-    System.out.println(person);
-		return personService.create(person);
-	}
+  @Autowired
+  private PersonService personService;
+
+  @PostMapping()
+  public Person create(@RequestBody Person person){
+    return personService.create(person);
+  }
   
   @GetMapping()
-	public List<Person> findAllUnDeleted() {
+  public List<Person> findAllUnDeleted() {
     return personService.findAll(false);
   }
   
   @GetMapping("/all")
-	public List<Person> findAll() {
-  return personService.findAll(true);
-}
+  public List<Person> findAll() {
+	  return personService.findAll(true);
+  }
 
   @GetMapping("/{personId}")
-	public Person findByPersonId(@PathVariable (value = "personId") UUID personId) {
-  return personService.findByUuid(personId);
-}
+  public Person findByPersonId(@PathVariable (value = "personId") UUID personId) {
+	  return personService.findByUuid(personId);
+  }
+  
+  @GetMapping("/customer/{customerId}")
+	public List<Person> findByCustomerUuid(@PathVariable (value = "customerId") UUID customerId) {
+	  return personService.findByCustomerUuid(customerId);
+  }
 
   @PutMapping("/{personId}/customer/{customerId}")
-  public Person updateCustomerId(@PathVariable (value = "personId") UUID personId,
-  @PathVariable (value = "customerId") UUID customerId) {
+  public Person updateCustomerId(
+    @PathVariable (value = "personId") UUID personId,
+    @PathVariable (value = "customerId") UUID customerId
+  ) {
     return personService.updateCustomerId(personId, customerId);
   }
   
   @DeleteMapping("/{personId}")
-	public ResponseEntity<?> delete(@PathVariable (value = "personId") UUID personId){
-		return personService.deletePerson(personId);
+  public ResponseEntity<?> delete(@PathVariable (value = "personId") UUID personId) {
+	  return personService.deletePerson(personId);
   }
   
   @PutMapping("/{personId}")
-	public Person update(@RequestBody Person person, @PathVariable (value = "personId") UUID personId){
-		return personService.updatePerson(personId, person);
-	}
+  public Person update(@RequestBody Person person, @PathVariable (value = "personId") UUID personId) {
+	  return personService.updatePerson(personId, person);
+  }
 }

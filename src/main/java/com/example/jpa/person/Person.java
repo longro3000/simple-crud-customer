@@ -11,45 +11,48 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.ColumnDefault;
 
 import com.example.jpa.customer.Customer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "person")
 @Table(name = "person")
 public class Person implements Serializable {
   @Id
   @GeneratedValue
-  @Column(name = "id")
   private Long id;
 
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @ColumnDefault("random_uuid()")
   @Column(name = "uuid", columnDefinition = "BINARY(16)")
+  @NotNull
   private UUID uuid = UUID.randomUUID();
 
   @Column(name = "first_name", columnDefinition = "varchar(255)")
+  @NotNull
   @Size(max = 255)
   private String firstName;
 
   @Column(name = "last_name", columnDefinition = "varchar(255)")
+  @NotNull
   @Size(max = 255)
   private String lastName;
 
   @Column(name = "role", columnDefinition = "varchar(255)")
+  @NotNull
   @Size(max = 255)
   private String role;
 
   @Column(name = "is_deleted", columnDefinition = "boolean default false")
+  @NotNull
   private boolean isDeleted = false;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "customer_id", referencedColumnName = "uuid", nullable = true)
   private Customer customer;
 
@@ -96,11 +99,11 @@ public class Person implements Serializable {
     return this.role;
   }
 
-  public void setDeleted(boolean isDeleted) {
+  public void setIsDeleted(boolean isDeleted) {
     this.isDeleted = isDeleted;
   }
 
-  public boolean getDeleted() {
+  public boolean getIsDeleted() {
     return this.isDeleted;
   }
 

@@ -1,5 +1,6 @@
 package com.example.jpa.customer;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 @Entity(name = "customer")
 @Table(name = "customer")
-public class Customer {
+public class Customer implements Serializable {
   @Id
   @GeneratedValue
   private Long id;
@@ -24,6 +25,7 @@ public class Customer {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "uuid", columnDefinition = "BINARY(16)")
   @ColumnDefault("random_uuid()")
+  @NotNull
   private UUID uuid = UUID.randomUUID();
 
   @Column(name = "name", columnDefinition = "varchar(255)")
@@ -40,23 +42,23 @@ public class Customer {
   }
   
   public UUID getUuid() {
-	  return this.uuid;
+	return this.uuid;
   }
   
   public void setUuid(UUID uuid) {
-	  this.uuid = uuid;
+	this.uuid = uuid;
   }
   
   public Customer(String name) {
     this.name = name;
   }
-
+  
   public void setName(String name) {
-    this.name = name;
+	this.name = name;
   }
 
   public String getName() {
-    return this.name;
+	return this.name;
   }
 
   public void setActive(boolean isActive) {
