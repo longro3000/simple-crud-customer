@@ -14,10 +14,10 @@ import com.example.jpa.exception.ResourceNotFoundException;
 public class PersonService {
   
 	@Autowired
-  PersonRepository repository;
+	PersonRepository repository;
 
-  @Autowired
-  CustomerRepository customerRepository;
+	@Autowired
+	CustomerRepository customerRepository;
 	
 	public Person create(Person person){
 		Person newPerson = new Person(person.getFirstName(), person.getLastName(), person.getRole());
@@ -41,7 +41,7 @@ public class PersonService {
 			  person.setCustomer(customer);
 			  return repository.save(person);
 		  }).orElseThrow(() -> new ResourceNotFoundException("person with id " + personId + " not found"));
-	  }).orElseThrow(() -> new ResourceNotFoundException("customer with id " + customerId + " not found"));
+  }).orElseThrow(() -> new ResourceNotFoundException("customer with id " + customerId + " not found"));
   }
   
   public List<Person> findByCustomerUuid(UUID customerId) {
@@ -53,7 +53,7 @@ public class PersonService {
     	 if (person.getIsDeleted() == false) {
     	      return person;
     	    } else throw(new ResourceNotFoundException("Person with customer id " + personId + " not found"));
-    }).orElseThrow(() -> new ResourceNotFoundException("Person with id " + personId + " not found"));
+}).orElseThrow(() -> new ResourceNotFoundException("Person with id " + personId + " not found"));
   }
   
   public ResponseEntity<?> deletePerson(UUID personId) {

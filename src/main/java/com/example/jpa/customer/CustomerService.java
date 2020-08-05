@@ -21,9 +21,9 @@ public class CustomerService {
 		return newCustomer;
 	}
 
-  public List<Customer> findAll(boolean isActive){
+  public List<Customer> findAll(boolean onlyActive){
     List<Customer> customers;
-    if (isActive == false) {  
+    if (onlyActive == false) {  
       customers = repository.findAll();
     } else {
       customers = repository.findByIsActiveTrue();
@@ -46,6 +46,7 @@ public class CustomerService {
 
   public Customer updateCustomer(UUID customerId, Customer newCustomer) {
     return repository.findByUuid(customerId).map(customer -> {
+      customer.setActive(newCustomer.getActive());	
       customer.setName(newCustomer.getName());
       return repository.save(customer);
     }).orElseThrow(() -> new ResourceNotFoundException("Customer with id " + customerId + " not found"));

@@ -29,7 +29,7 @@ public class CustomerController {
   
   @GetMapping()
 	public List<Customer> findAll() {
-    return customerService.findAll(true);
+    return customerService.findAll(false);
   }
 
   @GetMapping("/active")

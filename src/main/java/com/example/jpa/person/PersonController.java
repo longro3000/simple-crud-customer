@@ -29,17 +29,18 @@ public class PersonController {
   public List<Person> findAll() {
 	  return personService.findAll(true);
   }
-
-  @GetMapping("/{personId}")
-  public Person findByPersonId(@PathVariable (value = "personId") UUID personId) {
-	  return personService.findByUuid(personId);
-  }
   
   @GetMapping("/customer/{customerId}")
 	public List<Person> findByCustomerUuid(@PathVariable (value = "customerId") UUID customerId) {
 	  return personService.findByCustomerUuid(customerId);
   }
 
+
+  @GetMapping("/{personId}")
+  public Person findByPersonId(@PathVariable (value = "personId") UUID personId) {
+	  return personService.findByUuid(personId);
+  }
+  
   @PutMapping("/{personId}/customer/{customerId}")
   public Person updateCustomerId(
     @PathVariable (value = "personId") UUID personId,
